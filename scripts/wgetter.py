@@ -37,9 +37,10 @@ def get_licenses_ref():
 
     return res
 
-def get_license(target_url="https://api.github.com/licenses/gpl-3.0"):
+def get_license(target_url):
     """Busca uma licensa na api e retorna seu texto"""
     tmp = get(target_url).json()
     return tmp['body'], tmp["permissions"]
 
-pprint(get_license())
+def get_emojis():
+     return = get("https://api.github.com/emojis").json().keys()
