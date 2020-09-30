@@ -14,6 +14,7 @@ from os import makedirs
 from json import load, dump
 from datetime import datetime
 from math import floor
+from socket import create_connection
 
 def get_pkg_mng():
     # TODO: Adicionar mais gerenciadores de pacotes
@@ -66,3 +67,9 @@ data_path = {
     "licenses":cache_path  + "/licenses.json",
     "emoji": cache_path  + "emoji.json"
 }
+
+def is_connected():
+    try:
+        create_connection(('1.1.1.1', 53))
+        return 1
+    except OSError: return 0
