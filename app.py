@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # import scripts.os_checker
 from __future__ import print_function, unicode_literals
-from pprint import pprint
 from PyInquirer import prompt
+from scripts.commiter import commit as exec_commit
 import click
 
 
@@ -48,8 +48,8 @@ def main(commit, commitall, license, gitignores, list):
         gitignores = answers['action'] == "Add GitIgnore" or answers['action'] == "List GitIgnore"
         list = answers['action'] == "List Licenses" or answers['action'] == "List GitIgnore"
 
-        if commit: pass
-        if commitall: pass
+        if commit: exec_commit()
+        if commitall: exec_commit(True)
         if license and not list: pass
         if license and list: pass
         if gitignores and not list: pass

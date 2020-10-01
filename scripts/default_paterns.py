@@ -16,9 +16,9 @@ class DefaultInfo(object):
 
     def emoji_name():
         def fget(self):
-            return self.emoji_name
+            return self._emoji_name
         return locals()
-    emoji_name = property(*emoji_name())
+    emoji_name = property(**emoji_name())
 
     def emoji():
         def fget(self):
