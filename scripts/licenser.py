@@ -1,10 +1,7 @@
 from __future__ import print_function, unicode_literals
 from PyInquirer import prompt
-from wgetter import get_licenses_ref, get_license
+from .wgetter import get_licenses_ref, get_license
 from pprint import pprint
-
-def list_licenses():
-    get_licenses_ref()
 
 
 def add_license():
@@ -37,5 +34,3 @@ def add_license():
         file = open("LICENSE.md", "w")
         file.write(body)
         file.close()
-
-add_license()
