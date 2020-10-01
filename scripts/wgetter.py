@@ -43,4 +43,4 @@ def get_license(target_url):
     return tmp['body'], tmp["permissions"]
 
 def get_emojis():
-     return = get("https://api.github.com/emojis").json().keys()
+     return  get("https://api.github.com/emojis").json().keys()

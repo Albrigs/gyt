@@ -39,13 +39,7 @@ class TargetInfo(DefaultInfo):
         return locals()
     actions = property(**actions())
 
-"""
-- Metadata 	card_index :card_index:
-- Improve format/structure 	art :art:
 
--
-- Code review changes 	ok_hand :ok_hand:
-"""
 default_actions = (
     DefaultInfo("Work in progress", "construction"),
     DefaultInfo("Performance", "runner"),

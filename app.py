@@ -4,6 +4,7 @@ from __future__ import print_function, unicode_literals
 from PyInquirer import prompt
 from scripts.commiter import commit as exec_commit
 import click
+from scripts.licenser import add_license, list_licenses
 
 
 @click.command()
@@ -50,8 +51,8 @@ def main(commit, commitall, license, gitignores, list):
 
         if commit: exec_commit()
         if commitall: exec_commit(True)
-        if license and not list: pass
-        if license and list: pass
+        if license and not list: add_license()
+        if license and list: list_licenses()
         if gitignores and not list: pass
         if gitignores and list: pass
 
