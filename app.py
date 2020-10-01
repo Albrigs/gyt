@@ -4,21 +4,21 @@ from __future__ import print_function, unicode_literals
 from PyInquirer import prompt
 from scripts.commiter import commit as exec_commit
 import click
-from scripts.licenser import add_license, list_licenses
+from scripts.licenser import add_license
 from scripts.ignorer import  add_ignores
 
 @click.command()
 @click.option('-c','--commit', is_flag=True,
-help='')
+help='Commit with git.')
 @click.option('-ca','--commitall', is_flag=True,
-help='')
+help='Commit and track all files.')
 @click.option('-l','--license', is_flag=True,
-help='')
+help='Add a license.')
 @click.option('-i','--gitignores', is_flag=True,
-help='')
+help='Add or expand a .gitignore.')
 
-def main(commit, commitall, license, gitignores, list):
-    flags = commit + commitall + license + gitignores + list
+def main(commit, commitall, license, gitignores):
+    flags = commit + commitall + license + gitignores
     if flags > 1:
         return print("JUST ONE FLAG PLOX!")
 
