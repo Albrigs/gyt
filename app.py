@@ -46,8 +46,8 @@ def main(commit, commitall, license, gitignores):
 
         if commit: exec_commit()
         if commitall: exec_commit(True)
-        if license and not list: add_license()
-        if gitignores and not list: add_ignores()
+        if license: add_license()
+        if gitignores: add_ignores()
 
 if __name__ == '__main__':
     main()

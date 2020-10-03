@@ -33,7 +33,7 @@ def read_json(file):
 def comparate_json(data, file): return read_json(file) == data
 
 
-cfg_path = expanduser("~")+"/.giti"
+cfg_path = expanduser("~")+"/.gyt"
 os_type = system()
 last_check = { 'is': custom_timestamp() } # quando for diferente atualizar
 

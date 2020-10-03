@@ -3,7 +3,6 @@ from PyInquirer import prompt
 from .wgetter import get_licenses_ref, get_license
 from pprint import pprint
 
-
 def add_license():
     lic_list = get_licenses_ref()
     questions = [
