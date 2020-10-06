@@ -2,8 +2,10 @@ from __future__ import print_function, unicode_literals
 from PyInquirer import prompt
 
 from os.path import isfile
-from .wgetter import get_ignores_ref, get_ignore
+from .wgetter import get_ignore
 from pprint import pprint
+from .os_checker import selected_ignores
+
 
 def add_ignores():
     res = ''
@@ -12,8 +14,11 @@ def add_ignores():
         res += file.read()
         file.close()
 
-    ignores_list = get_ignores_ref()
-    choices = [{'name': e} for e in get_ignores_ref()]
+    ignores_list = {}
+    for e in selected_ignores:
+        ignores_list[e[0]] = e[1]
+
+    choices = [{'name': e} for e in ignores_list.keys()]
 
     questions = [
         {

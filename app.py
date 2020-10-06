@@ -7,6 +7,9 @@ import click
 from scripts.licenser import add_license
 from scripts.ignorer import  add_ignores
 
+import scripts.os_checker
+del scripts.os_checker
+
 @click.command()
 @click.option('-c','--commit', is_flag=True,
 help='Commit with git.')

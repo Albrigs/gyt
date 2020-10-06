@@ -10,11 +10,13 @@ from platform import system
 from shutil import which
 from os import system as terminal
 from os.path import expanduser, isdir, isfile
-from os import makedirs
-from json import load, dump
-from datetime import datetime
 from math import floor
 from socket import create_connection
+import sqlite3
+from .languages_selector import select_langs
+
+cfg_file  = expanduser("~")+"/.gyt.db"
+os_type = system()
 
 def get_pkg_mng():
     # TODO: Adicionar mais gerenciadores de pacotes
@@ -24,7 +26,6 @@ def get_pkg_mng():
 
 def linux_install(pkg_mng, pkg): terminal(f"sudo {pkg_mng} -y install {pkg}")
 def linux_has_emojione(): return terminal('fc-list | grep -q emojione') >= 1
-def custom_timestamp(): return floor(datetime.timestamp(datetime.now())/2592000)
 def read_json(file):
     tmp = {}
     with open(file, "r") as read_file:
@@ -32,10 +33,11 @@ def read_json(file):
     return tmp
 def comparate_json(data, file): return read_json(file) == data
 
-
-cfg_path = expanduser("~")+"/.gyt"
-os_type = system()
-last_check = { 'is': custom_timestamp() } # quando for diferente atualizar
+def is_connected():
+    try:
+        create_connection(('1.1.1.1', 53))
+        return 1
+    except OSError: return 0
 
 # instalando dependências
 if os_type == "Linux":
@@ -46,30 +48,43 @@ if os_type == "Linux":
 # TODO: Criar depois versão windows
 if os_type == "Windows": pass
 
-#Checagem da integridade dos arquivos de configuração
-cache_path = cfg_path+"/cache"
-comparator_path = cfg_path+"/comparator"
-if not isdir(cfg_path): makedirs(cfg_path)
-if not isdir(cache_path): makedirs(cache_path)
-if not isdir(comparator_path): makedirs(comparator_path)
+#criando base de dados
+conn = sqlite3.connect(cfg_file)
+cursor = conn.cursor()
+exec_sql = cursor.execute
+save_sql = conn.commit
 
-#atualizando arquivos
-check_file = cfg_path+"/last_check.json"
-if not isfile(check_file): #identificando arquivos vazios
-    with open(check_file, "w") as file:
-        dump(last_check, file)
-else:
-    if not comparate_json(last_check, check_file):
-        pass #atualização mensal
+def table_exists(name):
+    """
+    Retorna 1 ou 0 se a tabela existe ou não.
+    """
+    sql = f"SELECT name FROM sqlite_master WHERE type='table' AND name='{name}';"
+    has_table = [e for e in exec_sql(sql)].__len__()
+    return has_table
 
-data_path = {
-    "ignores": cache_path  + "/ignores.json",
-    "licenses":cache_path  + "/licenses.json",
-    "emoji": cache_path  + "emoji.json"
-}
+def table_content(name):
+    """
+    Retorna conteúdo de uma tabela ou 0 se estiver vazio
+    """
+    sql = f"SELECT * FROM {name};"
+    content = [e for e in exec_sql(sql)]
+    if not content.__len__(): return 0
+    return content
 
-def is_connected():
-    try:
-        create_connection(('1.1.1.1', 53))
-        return 1
-    except OSError: return 0
+#rotina de verificação inicial
+if not table_exists('langs'):
+    cursor.execute("""
+        CREATE TABLE langs (
+                lang TEXT NOT NULL,
+                url TEXT NOT NULL
+        );
+    """)
+    save_sql()
+
+if not table_content('langs'):
+    langs = select_langs()
+    for key in langs:
+        exec_sql(f"INSERT INTO langs VALUES ( '{key}', '{langs[key]}' )")
+    save_sql()
+
+selected_ignores = table_content('langs')
