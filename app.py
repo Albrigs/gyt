@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# import scripts.os_checker
 from __future__ import print_function, unicode_literals
 from PyInquirer import prompt
 import scripts.os_checker
@@ -7,7 +6,6 @@ from scripts.commiter import commit as exec_commit
 import click
 from scripts.licenser import add_license
 from scripts.ignorer import  add_ignores
-
 
 @click.command()
 @click.option('-c','--commit', is_flag=True,
