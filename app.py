@@ -8,6 +8,7 @@ import click
 from scripts.licenser import add_license
 from scripts.ignorer import  add_ignores
 
+
 @click.command()
 @click.option('-c','--commit', is_flag=True,
 help='Commit with git.')
@@ -54,8 +55,7 @@ def main(commit, commitall, license, gitignores, editgitignores):
         if commitall: exec_commit(True)
         if license: add_license()
         if gitignores: add_ignores()
-        if editgitignores: pass
-        # TODO: Editar isso aqui para editar os git ignores já salvos
+        if editgitignores: scripts.os_checker.db.config_langs()
 
 if __name__ == '__main__':
     main()
