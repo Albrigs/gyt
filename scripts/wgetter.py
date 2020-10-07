@@ -1,6 +1,7 @@
 from pprint import pprint
 from requests import get
 from base64 import b64decode
+from socket import create_connection
 
 b_url_ignore = "https://api.github.com/repos/github/gitignore/"
 
@@ -44,3 +45,9 @@ def get_license(target_url):
 
 def get_emojis():
      return  get("https://api.github.com/emojis").json().keys()
+
+def is_connected():
+    try:
+        create_connection(('1.1.1.1', 53))
+        return 1
+    except OSError: return 0

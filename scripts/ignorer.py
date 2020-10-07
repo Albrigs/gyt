@@ -4,7 +4,7 @@ from PyInquirer import prompt
 from os.path import isfile
 from .wgetter import get_ignore
 from pprint import pprint
-from .os_checker import selected_ignores
+from .os_checker import db
 
 
 def add_ignores():
@@ -15,7 +15,7 @@ def add_ignores():
         file.close()
 
     ignores_list = {}
-    for e in selected_ignores:
+    for e in db.table_content('langs'):
         ignores_list[e[0]] = e[1]
 
     choices = [{'name': e} for e in ignores_list.keys()]

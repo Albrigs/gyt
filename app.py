@@ -2,13 +2,11 @@
 # import scripts.os_checker
 from __future__ import print_function, unicode_literals
 from PyInquirer import prompt
+import scripts.os_checker
 from scripts.commiter import commit as exec_commit
 import click
 from scripts.licenser import add_license
 from scripts.ignorer import  add_ignores
-
-import scripts.os_checker
-del scripts.os_checker
 
 @click.command()
 @click.option('-c','--commit', is_flag=True,
@@ -19,9 +17,12 @@ help='Commit and track all files.')
 help='Add a license.')
 @click.option('-i','--gitignores', is_flag=True,
 help='Add or expand a .gitignore.')
+@click.option('-e','--editgitignores', is_flag=True,
+help='Change your ignores list.')
 
-def main(commit, commitall, license, gitignores):
-    flags = commit + commitall + license + gitignores
+
+def main(commit, commitall, license, gitignores, editgitignores):
+    flags = commit + commitall + license + gitignores + editgitignores
     if flags > 1:
         return print("JUST ONE FLAG PLOX!")
 
@@ -36,6 +37,7 @@ def main(commit, commitall, license, gitignores):
                     "Add * and Commit",
                     "Add GitIgnore",
                     "Add License",
+                    "Edit Default Ignores"
                 ]
             }
         ]
@@ -46,11 +48,14 @@ def main(commit, commitall, license, gitignores):
         commitall = answers['action'] == "Add * and Commit"
         license = answers['action'] == "Add License"
         gitignores = answers['action'] == "Add GitIgnore"
+        editgitignores = answers['action'] == "Edit Default Ignores"
 
         if commit: exec_commit()
         if commitall: exec_commit(True)
         if license: add_license()
         if gitignores: add_ignores()
+        if editgitignores: pass
+        # TODO: Editar isso aqui para editar os git ignores já salvos
 
 if __name__ == '__main__':
     main()
