@@ -16,6 +16,7 @@ setuptools.setup(
     classifiers=[
 
     ],
+    install_requires=['click', 'emojis', 'requests', 'PyInquirer'],
     python_requires='>=3.6',
     entry_points = {
         'console_scripts': [
