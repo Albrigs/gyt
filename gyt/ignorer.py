@@ -2,9 +2,9 @@ from __future__ import print_function, unicode_literals
 from PyInquirer import prompt
 
 from os.path import isfile
-from .wgetter import get_ignore
+from wgetter import get_ignore
 from pprint import pprint
-from .os_checker import db
+from os_checker import db
 
 
 def add_ignores():

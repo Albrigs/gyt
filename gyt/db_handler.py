@@ -1,4 +1,4 @@
-from .languages_selector import select_langs
+from languages_selector import select_langs
 import sqlite3
 from os.path import expanduser
 

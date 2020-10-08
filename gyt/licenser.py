@@ -1,6 +1,6 @@
 from __future__ import print_function, unicode_literals
 from PyInquirer import prompt
-from .wgetter import get_licenses_ref, get_license
+from wgetter import get_licenses_ref, get_license
 from pprint import pprint
 
 def add_license():

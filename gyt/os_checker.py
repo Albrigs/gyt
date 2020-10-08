@@ -10,7 +10,7 @@ from platform import system
 from shutil import which
 from os import system as terminal
 from math import floor
-from .db_handler import DBHandler
+from db_handler import DBHandler
 
 os_type = system()
 
