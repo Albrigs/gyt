@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 from __future__ import print_function, unicode_literals
 from PyInquirer import prompt
-import os_checker
-from commiter import commit as exec_commit
+from . import os_checker
+from .commiter import commit as exec_commit
 import click
-from licenser import add_license
-from ignorer import  add_ignores
+from .licenser import add_license
+from .ignorer import  add_ignores
 
 @click.command()
 @click.option('-c','--commit', is_flag=True,
@@ -53,7 +53,7 @@ def main(commit, commitall, license, gitignores, editgitignores):
         if commitall: exec_commit(True)
         if license: add_license()
         if gitignores: add_ignores()
-        if editgitignores: scripts.os_checker.db.config_langs()
+        if editgitignores: os_checker.db.config_langs()
 
 if __name__ == '__main__':
     main()

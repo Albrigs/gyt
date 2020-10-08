@@ -1,6 +1,6 @@
 from __future__ import print_function, unicode_literals
 from PyInquirer import prompt
-from wgetter import get_ignores_ref
+from .wgetter import get_ignores_ref
 
 def select_langs(selected=0):
     """

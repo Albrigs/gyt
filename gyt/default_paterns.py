@@ -1,4 +1,3 @@
-from pprint import pprint
 from emojis import encode as emojify
 
 class DefaultInfo(object):

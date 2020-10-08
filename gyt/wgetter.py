@@ -1,4 +1,3 @@
-from pprint import pprint
 from requests import get
 from base64 import b64decode
 from socket import create_connection
