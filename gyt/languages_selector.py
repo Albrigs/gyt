@@ -6,9 +6,9 @@ def select_langs(selected=0):
     """
         Seleciona linguagens que irão ser utilizadas nos gitignores.
     """
-    selected = [e[0] for e in selected]
     ignores_list = get_ignores_ref()
     if selected:
+        selected = [e[0] for e in selected]
         choices = [{'name': e, 'checked': e in selected} for e in get_ignores_ref()]
     else:
         choices = [{'name': e} for e in get_ignores_ref()]
