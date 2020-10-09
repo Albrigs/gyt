@@ -6,11 +6,12 @@ from .commiter import commit as exec_commit
 import click
 from .licenser import add_license
 from .ignorer import  add_ignores
+from .config_git import config_git
 
 @click.command()
 @click.option('-c','--commit', is_flag=True,
 help='Commit with git.')
-@click.option('-ca','--commitall', is_flag=True,
+@click.option('-a','--commitall', is_flag=True,
 help='Commit and track all files.')
 @click.option('-l','--license', is_flag=True,
 help='Add a license.')
@@ -18,10 +19,13 @@ help='Add a license.')
 help='Add or expand a .gitignore.')
 @click.option('-e','--editgitignores', is_flag=True,
 help='Change your ignores list.')
+@click.option('-g','--configgit', is_flag=True,
+help='Edit your git global configurations.')
 
 
-def main(commit, commitall, license, gitignores, editgitignores):
-    flags = commit + commitall + license + gitignores + editgitignores
+def main(commit, commitall, license, gitignores, editgitignores, configgit):
+    config_git()
+    flags = commit + commitall + license + gitignores + editgitignores + configgit
     if flags > 1:
         return print("JUST ONE FLAG PLOX!")
 
@@ -36,7 +40,8 @@ def main(commit, commitall, license, gitignores, editgitignores):
                     "Add * and Commit",
                     "Add GitIgnore",
                     "Add License",
-                    "Edit Default Ignores"
+                    "Edit Default Ignores",
+                    "Edit Git Configures"
                 ]
             }
         ]
@@ -48,12 +53,14 @@ def main(commit, commitall, license, gitignores, editgitignores):
         license = answers['action'] == "Add License"
         gitignores = answers['action'] == "Add GitIgnore"
         editgitignores = answers['action'] == "Edit Default Ignores"
+        configgit = answers['action'] == "Edit Git Configures"
 
         if commit: exec_commit()
         if commitall: exec_commit(True)
         if license: add_license()
         if gitignores: add_ignores()
         if editgitignores: os_checker.db.config_langs()
+        if configgit: config_git(1)
 
 if __name__ == '__main__':
     main()
