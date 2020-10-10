@@ -46,5 +46,5 @@ def commit(stage_all=False):
 
     print(f'{emoji1.emoji}{emoji2.emoji} { title }\n{ body }')
 
-    all = stage_all*"-a"
-    system(f"git commit {all} -m\"{emoji1.emoji_name}{emoji2.emoji_name}{title}\" -m \"{body}\" ")
+    if all: system("git add .")
+    system(f"git commit -m\"{emoji1.emoji_name}{emoji2.emoji_name}{title}\" -m \"{body}\" ")

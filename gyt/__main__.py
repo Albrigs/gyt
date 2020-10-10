@@ -55,12 +55,12 @@ def main(commit, commitall, license, gitignores, editgitignores, configgit):
         editgitignores = answers['action'] == "Edit Default Ignores"
         configgit = answers['action'] == "Edit Git Configures"
 
-        if commit: exec_commit()
-        if commitall: exec_commit(True)
-        if license: add_license()
-        if gitignores: add_ignores()
-        if editgitignores: os_checker.db.config_langs()
-        if configgit: config_git(1)
+    if commit: exec_commit()
+    if commitall: exec_commit(True)
+    if license: add_license()
+    if gitignores: add_ignores()
+    if editgitignores: os_checker.db.config_langs()
+    if configgit: config_git(1)
 
 if __name__ == '__main__':
     main()
